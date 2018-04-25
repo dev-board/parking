@@ -1,4 +1,4 @@
-$().ready(function() {
+$().ready(function () {
     $sidebar = $('.sidebar');
     $sidebar_img_container = $sidebar.find('.sidebar-background');
 
@@ -17,7 +17,7 @@ $().ready(function() {
 
     }
 
-    $('.fixed-plugin a').click(function(event) {
+    $('.fixed-plugin a').click(function (event) {
         // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
         if ($(this).hasClass('switch-trigger')) {
             if (event.stopPropagation) {
@@ -28,7 +28,7 @@ $().ready(function() {
         }
     });
 
-    $('.fixed-plugin .background-color span').click(function() {
+    $('.fixed-plugin .background-color span').click(function () {
         $(this).siblings().removeClass('active');
         $(this).addClass('active');
 
@@ -47,7 +47,7 @@ $().ready(function() {
         }
     });
 
-    $('.fixed-plugin .img-holder').click(function() {
+    $('.fixed-plugin .img-holder').click(function () {
         $full_page_background = $('.full-page-background');
 
         $(this).parent('li').siblings().removeClass('active');
@@ -57,7 +57,7 @@ $().ready(function() {
         var new_image = $(this).find("img").attr('src');
 
         if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            $sidebar_img_container.fadeOut('fast', function() {
+            $sidebar_img_container.fadeOut('fast', function () {
                 $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
                 $sidebar_img_container.fadeIn('fast');
             });
@@ -66,7 +66,7 @@ $().ready(function() {
         if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
             var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-            $full_page_background.fadeOut('fast', function() {
+            $full_page_background.fadeOut('fast', function () {
                 $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
                 $full_page_background.fadeIn('fast');
             });
@@ -85,7 +85,7 @@ $().ready(function() {
         }
     });
 
-    $('.switch input').on("switchChange.bootstrapSwitch", function() {
+    $('.switch input').on("switchChange.bootstrapSwitch", function () {
 
         $full_page_background = $('.full-page-background');
 
@@ -122,8 +122,8 @@ $().ready(function() {
 type = ['primary', 'info', 'success', 'warning', 'danger'];
 
 demo = {
-    initPickColor: function() {
-        $('.pick-class-label').click(function() {
+    initPickColor: function () {
+        $('.pick-class-label').click(function () {
             var new_class = $(this).attr('new-class');
             var old_class = $('#display-buttons').attr('data-class');
             var display_div = $('#display-buttons');
@@ -136,7 +136,7 @@ demo = {
         });
     },
 
-    initDocumentationCharts: function() {
+    initDocumentationCharts: function () {
         /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
         dataDailySalesChart = {
@@ -165,7 +165,7 @@ demo = {
         // lbd.startAnimationForLineChart(dailySalesChart);
     },
 
-    initDashboardPageCharts: function() {
+    initDashboardPageCharts: function () {
 
         var dataPreferences = {
             series: [
@@ -241,7 +241,7 @@ demo = {
         var responsiveSales = [
             ['screen and (max-width: 640px)', {
                 axisX: {
-                    labelInterpolationFnc: function(value) {
+                    labelInterpolationFnc: function (value) {
                         return value[0];
                     }
                 }
@@ -272,7 +272,7 @@ demo = {
             ['screen and (max-width: 640px)', {
                 seriesBarDistance: 5,
                 axisX: {
-                    labelInterpolationFnc: function(value) {
+                    labelInterpolationFnc: function (value) {
                         return value[0];
                     }
                 }
@@ -365,7 +365,7 @@ demo = {
 
     },
 
-    initGoogleMaps: function() {
+    initGoogleMaps: function () {
         var myLatlng = new google.maps.LatLng(36.320709, 50.039857);
         var mapOptions = {
             zoom: 20,
@@ -510,7 +510,7 @@ demo = {
             var lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(dist) *
                 Math.cos(lat1),
                 Math.cos(dist) - Math.sin(lat1) *
-                Math.sin(lat2)); 
+                Math.sin(lat2));
 
             if (isNaN(lat2) || isNaN(lon2)) return null;
 
@@ -523,21 +523,31 @@ demo = {
 
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
+        // Add multiple markers to map
+        var infoWindow = new google.maps.InfoWindow();
+
         for (let i = 0; i < 33; i++) {
-            new google.maps.Marker({
+            var marker = new google.maps.Marker({
                 position: pointA.destinationPoint(121, radius),
                 title: 'ZONE #' + (i + 1),
                 map: map
             });
 
             radius += 0.003;
-        }
 
+            // Add info window to marker    
+            google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                return function () {
+                    infoWindow.setContent(`<div class="info_content"><h3>Parking spot number: #${i + 1}</h3><p><a class='btn btn-sm btn-primary' href='#'>Reserve</a></p></div>`);
+                    infoWindow.open(map, marker);
+                }
+            })(marker, i));
+        }
 
 
     },
 
-    showNotification: function(from, align) {
+    showNotification: function (from, align) {
         color = Math.floor((Math.random() * 4) + 1);
 
         $.notify({
@@ -545,13 +555,13 @@ demo = {
             message: "Welcome to <b>Light Bootstrap Dashboard</b> - a beautiful freebie for every web developer."
 
         }, {
-            type: type[color],
-            timer: 8000,
-            placement: {
-                from: from,
-                align: align
-            }
-        });
+                type: type[color],
+                timer: 8000,
+                placement: {
+                    from: from,
+                    align: align
+                }
+            });
     }
 
 
