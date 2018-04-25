@@ -529,6 +529,7 @@ demo = {
         for (let i = 0; i < 33; i++) {
             var marker = new google.maps.Marker({
                 position: pointA.destinationPoint(121, radius),
+                label: (i+1).toString(),
                 title: 'ZONE #' + (i + 1),
                 map: map
             });
