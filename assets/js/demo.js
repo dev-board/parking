@@ -370,7 +370,8 @@ demo = {
         var mapOptions = {
             zoom: 20,
             center: myLatlng,
-            scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
+            gestureHandling: 'cooperative',
+            scrollwheel: true, //we disable de scroll over the map, it is a really annoing when you scroll through page
             styles: [{
                 "featureType": "water",
                 "elementType": "geometry",
@@ -514,7 +515,7 @@ demo = {
             if (isNaN(lat2) || isNaN(lon2)) return null;
 
             return new google.maps.LatLng(lat2.toDeg(), lon2.toDeg());
-            
+
         }
 
         var pointA = new google.maps.LatLng(36.320709, 50.039857);   // Circle center
