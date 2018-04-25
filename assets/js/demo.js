@@ -368,7 +368,7 @@ demo = {
     initGoogleMaps: function() {
         var myLatlng = new google.maps.LatLng(36.320709, 50.039857);
         var mapOptions = {
-            zoom: 19,
+            zoom: 20,
             center: myLatlng,
             scrollwheel: false, //we disable de scroll over the map, it is a really annoing when you scroll through page
             styles: [{
@@ -489,15 +489,50 @@ demo = {
             }]
         };
 
+        Number.prototype.toRad = function () {
+            return this * Math.PI / 180;
+        }
+
+        Number.prototype.toDeg = function () {
+            return this * 180 / Math.PI;
+        }
+
+        google.maps.LatLng.prototype.destinationPoint = function (brng, dist) {
+            dist = dist / 6371;
+            brng = brng.toRad();
+
+            var lat1 = this.lat().toRad(), lon1 = this.lng().toRad();
+
+            var lat2 = Math.asin(Math.sin(lat1) * Math.cos(dist) +
+                Math.cos(lat1) * Math.sin(dist) * Math.cos(brng));
+
+            var lon2 = lon1 + Math.atan2(Math.sin(brng) * Math.sin(dist) *
+                Math.cos(lat1),
+                Math.cos(dist) - Math.sin(lat1) *
+                Math.sin(lat2)); 
+
+            if (isNaN(lat2) || isNaN(lon2)) return null;
+
+            return new google.maps.LatLng(lat2.toDeg(), lon2.toDeg());
+        }
+
+        var pointA = new google.maps.LatLng(36.320709, 50.039857);   // Circle center
+        var radius = 0.003;                                         // 3 meteres
+
         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            title: "Hello World!"
-        });
+        for (let i = 0; i < 33; i++) {
+            new google.maps.Marker({
+                position: pointA.destinationPoint(121, radius),
+                title: 'ZONE #' + (i + 1),
+                map: map
+            });
 
-        // To add the marker to the map, call setMap();
-        marker.setMap(map);
+            radius += 0.003;
+        }
+
+
+
     },
 
     showNotification: function(from, align) {
