@@ -16,7 +16,7 @@
     <link href="assets/css/light-bootstrap-dashboard.css?v=2.0.1" rel="stylesheet" />
 
     <link href="assets/css/demo.css" rel="stylesheet" />
-</head> 
+</head>
 
 <body>
     <div class="wrapper">
@@ -159,8 +159,9 @@
                             ©
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script>
-                            Demo developed by <a href="mailto:hmd.net@gmail.com">Hamid Shafi'ee</a> - Theme by <a target="_blank" href="http://www.creative-tim.com">Creative Tim</a>
+                            </script> Demo developed by
+                            <a href="mailto:hmd.net@gmail.com">Hamid Shafi'ee</a> - Theme by
+                            <a target="_blank" href="http://www.creative-tim.com">Creative Tim</a>
                         </p>
                     </nav>
                 </div>
@@ -176,6 +177,7 @@
 <script src="assets/js/plugins/bootstrap-switch.js"></script>
 <!--  Google Maps Plugin    -->
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQuqe8v4inQ3OJrT44azA646uPjYlYNNI"></script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <!--  Chartist Plugin  -->
 <script src="assets/js/plugins/chartist.min.js"></script>
 <!--  Notifications Plugin    -->
@@ -186,9 +188,14 @@
 <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
         demo.initGoogleMaps();
 
+        $('#btnReserve').on('click', function (event) {
+            alert('markerId');
+            var markerId = $(this).data('id');
+            markers[markerId].setIcon(1);
+        });
     });
 </script>
 

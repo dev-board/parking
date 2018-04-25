@@ -367,7 +367,7 @@ demo = {
 
     initGoogleMaps: function () {
         var mapOptions = {
-            zoom: 20,
+            zoom: 18,
             center: new google.maps.LatLng(36.320800, 50.040426),
             // gestureHandling: 'cooperative',
             gestureHandling: 'greedy',
@@ -536,41 +536,47 @@ demo = {
 
         var startPointsPerLane = [
             { lat: 36.320709, lng: 50.039857, initial: 'Z' },
-            { lat: 36.321320, lng: 50.040283, initial: 'A' },
+            // { lat: 36.321320, lng: 50.040283, initial: 'A' },
             { lat: 36.321287, lng: 50.040253, initial: 'B' },
-            { lat: 36.321221, lng: 50.040198, initial: 'C' },
+            // { lat: 36.321221, lng: 50.040198, initial: 'C' },
             { lat: 36.321178, lng: 50.040165, initial: 'D' },
-            { lat: 36.321114, lng: 50.040123, initial: 'E' },
+            // { lat: 36.321114, lng: 50.040123, initial: 'E' },
             { lat: 36.321065, lng: 50.040090, initial: 'F' },
-            { lat: 36.321002, lng: 50.040051, initial: 'G' },
+            // { lat: 36.321002, lng: 50.040051, initial: 'G' },
             { lat: 36.320960, lng: 50.040015, initial: 'H' }];
 
-        for (let l = 0; l < startPointsPerLane.length; l++) {
+        var markers = [];
 
-            pointA = new google.maps.LatLng(startPointsPerLane[l].lat, startPointsPerLane[l].lng);
+        for (let j = 0; j < startPointsPerLane.length; j++) {
+
+            pointA = new google.maps.LatLng(startPointsPerLane[j].lat, startPointsPerLane[j].lng);
             radius = 0.003;
 
             for (let i = 0; i < 33; i++) {
                 var marker = new google.maps.Marker({
                     position: pointA.destinationPoint(121, radius),
-                    label: startPointsPerLane[l].initial + (i + 1).toString(),
+                    label: startPointsPerLane[j].initial + (i + 1).toString(),
                     // title: 'ZONE #' + (i + 1),
                     icon: markerIcon,
                     map: map
                 });
+
+                markers[startPointsPerLane[j].initial + (i + 1)] = (marker);
 
                 radius += 0.003;
 
                 // Add info window to marker    
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
-                        infoWindow.setContent(`<div class="info_content"><h3>Parking Spot : ${startPointsPerLane[l].initial} ${i + 1}</h3><p><a class='btn btn-sm btn-primary' href='#'>Reserve</a></p></div>`);
+                        infoWindow.setContent(`<div class="info_content"><h3>Parking Spot : ${startPointsPerLane[j].initial} ${i + 1}</h3><p><button id='btnReserve' data-id='${startPointsPerLane[j].initial + (i + 1)}' class='btn btn-primary'>Reserve</button><br>&nbsp;</p></div>`);
                         infoWindow.open(map, marker);
                     }
                 })(marker, i));
             }
         }
 
+        var markerCluster = new MarkerClusterer(map, markers,
+            { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
 
     },
 
