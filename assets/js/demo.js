@@ -366,10 +366,9 @@ demo = {
     },
 
     initGoogleMaps: function () {
-        var myLatlng = new google.maps.LatLng(36.320709, 50.039857);
         var mapOptions = {
             zoom: 20,
-            center: myLatlng,
+            center: new google.maps.LatLng(36.320800, 50.040426),
             gestureHandling: 'cooperative',
             scrollwheel: true, //we disable de scroll over the map, it is a really annoing when you scroll through page
             styles: [{
@@ -526,23 +525,49 @@ demo = {
         // Add multiple markers to map
         var infoWindow = new google.maps.InfoWindow();
 
-        for (let i = 0; i < 33; i++) {
-            var marker = new google.maps.Marker({
-                position: pointA.destinationPoint(121, radius),
-                label: (i+1).toString(),
-                title: 'ZONE #' + (i + 1),
-                map: map
-            });
+        var markerIcon = {
+            url: 'http://image.flaticon.com/icons/svg/252/252025.svg',
+            scaledSize: new google.maps.Size(80, 80),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(32, 65),
+            labelOrigin: new google.maps.Point(40, 33),
+        };
 
-            radius += 0.003;
+        var startPointsPerLane = [
+            { lat: 36.320709, lng: 50.039857, initial: 'Z' },
+            { lat: 36.321320, lng: 50.040283, initial: 'A' },
+            { lat: 36.321287, lng: 50.040253, initial: 'B' },
+            { lat: 36.321221, lng: 50.040198, initial: 'C' },
+            { lat: 36.321178, lng: 50.040165, initial: 'D' },
+            { lat: 36.321114, lng: 50.040123, initial: 'E' },
+            { lat: 36.321065, lng: 50.040090, initial: 'F' },
+            { lat: 36.321002, lng: 50.040051, initial: 'G' },
+            { lat: 36.320960, lng: 50.040015, initial: 'H' }];
 
-            // Add info window to marker    
-            google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                return function () {
-                    infoWindow.setContent(`<div class="info_content"><h3>Parking spot number: #${i + 1}</h3><p><a class='btn btn-sm btn-primary' href='#'>Reserve</a></p></div>`);
-                    infoWindow.open(map, marker);
-                }
-            })(marker, i));
+        for (let l = 0; l < startPointsPerLane.length; l++) {
+
+            pointA = new google.maps.LatLng(startPointsPerLane[l].lat, startPointsPerLane[l].lng);
+            radius = 0.003;
+
+            for (let i = 0; i < 33; i++) {
+                var marker = new google.maps.Marker({
+                    position: pointA.destinationPoint(121, radius),
+                    label: startPointsPerLane[l].initial + (i + 1).toString(),
+                    // title: 'ZONE #' + (i + 1),
+                    icon: markerIcon,
+                    map: map
+                });
+
+                radius += 0.003;
+
+                // Add info window to marker    
+                google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                    return function () {
+                        infoWindow.setContent(`<div class="info_content"><h3>Parking Spot : ${startPointsPerLane[l].initial} ${i + 1}</h3><p><a class='btn btn-sm btn-primary' href='#'>Reserve</a></p></div>`);
+                        infoWindow.open(map, marker);
+                    }
+                })(marker, i));
+            }
         }
 
 
