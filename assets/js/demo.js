@@ -369,7 +369,8 @@ demo = {
         var mapOptions = {
             zoom: 20,
             center: new google.maps.LatLng(36.320800, 50.040426),
-            gestureHandling: 'cooperative',
+            // gestureHandling: 'cooperative',
+            gestureHandling: 'greedy',
             scrollwheel: true, //we disable de scroll over the map, it is a really annoing when you scroll through page
             styles: [{
                 "featureType": "water",
