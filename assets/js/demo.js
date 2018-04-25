@@ -514,6 +514,7 @@ demo = {
             if (isNaN(lat2) || isNaN(lon2)) return null;
 
             return new google.maps.LatLng(lat2.toDeg(), lon2.toDeg());
+            
         }
 
         var pointA = new google.maps.LatLng(36.320709, 50.039857);   // Circle center
