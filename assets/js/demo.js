@@ -564,7 +564,7 @@ demo = {
                 
                 console.log(startPointsPerLane[j].initial + (i + 1).toString() + ' : ' + pointA.destinationPoint(121, radius));
 
-                latlang[startPointsPerLane[j].initial + (i + 1).toString()] = pointA.destinationPoint(121, radius);
+                latlang.push( pointA.destinationPoint(121, radius));
 
                 markers[startPointsPerLane[j].initial + (i + 1)] = (marker);
 
