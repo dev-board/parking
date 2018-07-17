@@ -562,9 +562,8 @@ demo = {
                     map: map
                 });
                 
-                str += startPointsPerLane[j].initial + (i + 1).toString() + ' : ' + pointA.destinationPoint(121, radius);
+                str += startPointsPerLane[j].initial + (i + 1).toString() + ':' + pointA.destinationPoint(121, radius);
                 str+= " | ";
-                console.log(str);
 
                 markers[startPointsPerLane[j].initial + (i + 1)] = (marker);
 
