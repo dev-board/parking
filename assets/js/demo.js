@@ -579,7 +579,7 @@ demo = {
         }
         console.log('latlang');
         console.log(latlang);
-        console.log(latlang[0].lat());
+        console.log(latlang[0].lat);
         var markerCluster = new MarkerClusterer(map, markers,
             { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
 
