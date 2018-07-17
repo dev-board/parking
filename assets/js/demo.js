@@ -562,6 +562,8 @@ demo = {
                     map: map
                 });
                 
+                console.log('destinationPoint: ' + pointA.destinationPoint(121, radius));
+
                 latlang[startPointsPerLane[j].initial + (i + 1).toString()] = pointA.destinationPoint(121, radius);
 
                 markers[startPointsPerLane[j].initial + (i + 1)] = (marker);
@@ -580,7 +582,6 @@ demo = {
         console.log('latlang1');
         console.log(latlang);
         console.log('test: ' + new google.maps.LatLng(36.320709, 50.039857));
-        console.log('destinationPoint: ' + pointA.destinationPoint(121, radius));
         
         console.log(latlang['B1'].lat);
         var markerCluster = new MarkerClusterer(map, markers,
