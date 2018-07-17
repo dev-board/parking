@@ -562,7 +562,7 @@ demo = {
                     map: map
                 });
                 
-                latlang[startPointsPerLane[j].initial + (i + 1).toString()] = marker.position;
+                latlang[startPointsPerLane[j].initial + (i + 1).toString()] = marker.getPosition();
 
                 markers[startPointsPerLane[j].initial + (i + 1)] = (marker);
 
@@ -577,7 +577,7 @@ demo = {
                 })(marker, i));
             }
         }
-        console.log('latlang');
+        console.log('latlang1');
         console.log(latlang);
         console.log(latlang['B1'].lat);
         var markerCluster = new MarkerClusterer(map, markers,
