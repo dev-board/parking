@@ -546,7 +546,7 @@ demo = {
             { lat: 36.320960, lng: 50.040015, initial: 'H' }];
 
         var markers = [];
-        var latlang = [];
+        var str = "";
 
         for (let j = 0; j < startPointsPerLane.length; j++) {
 
@@ -562,9 +562,9 @@ demo = {
                     map: map
                 });
                 
-                console.log(startPointsPerLane[j].initial + (i + 1).toString() + ' : ' + pointA.destinationPoint(121, radius));
-
-                latlang.push( pointA.destinationPoint(121, radius));
+                str += startPointsPerLane[j].initial + (i + 1).toString() + ' : ' + pointA.destinationPoint(121, radius);
+                str+= " | ";
+                console.log(str);
 
                 markers[startPointsPerLane[j].initial + (i + 1)] = (marker);
 
