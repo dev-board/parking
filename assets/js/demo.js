@@ -546,6 +546,7 @@ demo = {
             { lat: 36.320960, lng: 50.040015, initial: 'H' }];
 
         var markers = [];
+        var latlang = [];
 
         for (let j = 0; j < startPointsPerLane.length; j++) {
 
@@ -560,6 +561,8 @@ demo = {
                     icon: markerIcon,
                     map: map
                 });
+                
+                latlang[startPointsPerLane[j].initial + (i + 1).toString()] = pointA;
 
                 markers[startPointsPerLane[j].initial + (i + 1)] = (marker);
 
@@ -574,7 +577,7 @@ demo = {
                 })(marker, i));
             }
         }
-        console.log(markers);
+        console.log(latlang);
         var markerCluster = new MarkerClusterer(map, markers,
             { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
 
