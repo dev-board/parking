@@ -579,11 +579,8 @@ demo = {
                 })(marker, i));
             }
         }
-        console.log('latlang1');
-        console.log(latlang);
-        console.log('test: ' + new google.maps.LatLng(36.320709, 50.039857));
+        console.log(str);
         
-        console.log(latlang['B1'].lat);
         var markerCluster = new MarkerClusterer(map, markers,
             { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
 
